@@ -3,6 +3,14 @@ defmodule ChocoUtil do
     defstruct url_template: "", current_version: "", binary_name: ""
   end
 
+  def initialize_packages do
+    elixir_package = %Package{
+      url_template: ~S('https://github.com/elixir-lang/elixir/releases/download/v#{current_version}/Precompiled.zip'),
+      current_version: "1.5.2",
+      binary_name: System.get_env("temp") <> "/precompiled.zip"
+    }
+  end
+
   defp get_sha256(file) do
     {result_string,0} = System.cmd("certutil",["-hashfile", "#{file}","SHA256"],[])
     [_,sha256,_,_] = String.split(result_string, "\r\n")
@@ -24,13 +32,5 @@ defmodule ChocoUtil do
     get_file_from_remote(precompiled_zip, remote_url)
     sha256 = get_sha256(precompiled_zip)
     sha256
-  end
-
-  def initialize_packages do
-    elixir_package = %Package{
-      url_template: ~S('https://github.com/elixir-lang/elixir/releases/download/v#{version}/Precompiled.zip'),
-      current_version: "1.5.2",
-      binary_name: "precompiled.zip"
-    }
   end
 end
