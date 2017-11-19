@@ -1,5 +1,5 @@
 ﻿$package = 'rebar3'
-$version = '3.4.1'
+$version = '<%= get_current_rebar_version() %>'
 
 #Note that this process will _not_ uninstall Erlang.
 #Remove the shim file.
