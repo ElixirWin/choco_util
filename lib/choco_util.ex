@@ -1,8 +1,4 @@
 defmodule ChocoUtil do
-  defmodule Package do
-    defstruct url_template: "", current_version: "", download_directory: System.get_env("temp"), binary_name: ""
-  end
-
   defp initialize_packages do
     elixir_package = %Package{
       url_template: 'https://github.com/elixir-lang/elixir/releases/download/v1.5.2/Precompiled.zip',
@@ -17,13 +13,13 @@ defmodule ChocoUtil do
     }
 
     erlang_w32_package = %Package{
-      url_template: 'http://www.erlang.org/downloads/otp_win32_20.1.exe',
+      url_template: 'http://www.erlang.org/download/otp_win32_20.1.exe',
       current_version: "20.1",
       binary_name: "/opt_win32_20.1.exe"
     }
 
     erlang_w64_package = %Package{
-      url_template: 'http://www.erlang.org/downloads/otp_win64_20.1.exe',
+      url_template: 'http://www.erlang.org/download/otp_win64_20.1.exe',
       current_version: "20.1",
       binary_name: "/opt_win64_20.1.exe"
     }
