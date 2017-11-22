@@ -1,7 +1,7 @@
-﻿$package = 'rebar3'
-$version = '<%= get_current_rebar_version() %>'
+$package = 'rebar3'
+$version = '<%= get_current_version("Rebar3") %>'
 
 $toolsDir = $(Split-Path -Parent $MyInvocation.MyCommand.Definition)
-Get-ChocolateyWebFile -packageName $package -fileFullPath $toolsDir/$package -url "https://github.com/erlang/$package/releases/download/$version/rebar3"
+Get-ChocolateyWebFile -packageName $package -fileFullPath $toolsDir/$package -url "https://github.com/erlang/$package/releases/download/$version/rebar3" -checksum <%= get_file_and_sha256("Rebar3") %>
 
 Install-BinFile "rebar3" -path "$toolsDir/rebar3.cmd"
