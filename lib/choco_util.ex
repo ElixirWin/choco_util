@@ -22,7 +22,7 @@ defmodule ChocoUtil do
     rebar3_package
   end
 
-  defp initialize_package(@erlang_package_name_x86) do
+  defp initialize_package(@erlang_x86_package_name) do
     erlang_w32_package = %Package{
       url_template: 'http://www.erlang.org/download/otp_win32_20.1.exe',
       current_version: "20.1",
@@ -32,7 +32,7 @@ defmodule ChocoUtil do
   end
 
 
-  defp initialize_package(@erlang_package_name_x64) do
+  defp initialize_package(@erlang_x64_package_name) do
     erlang_w64_package = %Package{
       url_template: 'http://www.erlang.org/download/otp_win64_20.1.exe',
       current_version: "20.1",
@@ -56,7 +56,8 @@ defmodule ChocoUtil do
     File.write!(download_dir <> filename, body) 
   end
 
-  def get_file_and_sha256(package_details = initialize_package(@elixir_package_name)) do
+  def get_file_and_sha256(pn = @elixir_package_name) do
+    package_details = initialize_package(pn)
     download_directory = package_details.download_directory
     filename = package_details.binary_name
     remote_url = package_details.url_template
@@ -65,7 +66,8 @@ defmodule ChocoUtil do
     sha256
   end
 
-  def get_file_and_sha256(package_details = initialize_package(@rebar_package_name)) do
+  def get_file_and_sha256(pn = @rebar_package_name) do
+    package_details = initialize_package(pn)
     download_directory = package_details.download_directory
     filename = package_details.binary_name
     remote_url = package_details.url_template
@@ -74,7 +76,8 @@ defmodule ChocoUtil do
     sha256
   end
 
-  def get_file_and_sha256(package_details_x86 = initialize_package(@erlang_package_name_x86)) do
+  def get_file_and_sha256(pn = @erlang_x86_package_name) do
+    package_details_x86 = initialize_package(pn)
     download_directory = package_details_x86.download_directory
     filename = package_details_x86.binary_name
     remote_url = package_details_x86.url_template
@@ -83,7 +86,8 @@ defmodule ChocoUtil do
     sha256
   end
  
-  def get_file_and_sha256(package_details_x64 = initialize_package(@erlang_package_name_x64)) do
+  def get_file_and_sha256(pn = @erlang_x64_package_name) do
+    package_details_x64 = initialize_package(pn)
     download_directory = package_details_x64.download_directory
     filename = package_details_x64.binary_name
     remote_url = package_details_x64.url_template
@@ -97,8 +101,8 @@ defmodule ChocoUtil do
     p.current_version
   end
 
-  def get_current_version(@erlang_package_name) do
-    p = initialize_package(@erlang_package_name_x86)
+  def get_current_version(@erlang_x86_package_name) do
+    p = initialize_package(@erlang_x86_package_name)
     # Assume that x86 and x64 versions will always be the same
     p.current_version
   end
@@ -108,9 +112,9 @@ defmodule ChocoUtil do
     p.current_version
   end
 
-  def get_package_and_sha256() do 
-    for p <- initialize_packages() do 
-      get_file_and_sha256(p)
-    end
-  end    
+  # def get_package_and_sha256() do 
+  #   for p <- initialize_packages() do 
+  #     get_file_and_sha256(p)
+  #   end
+  # end    
 end

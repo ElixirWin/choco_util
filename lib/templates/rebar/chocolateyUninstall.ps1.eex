@@ -1,5 +1,5 @@
 ﻿$package = 'rebar3'
-$version = '<%= get_current_version("Rebar3") %>'
+$version = '<%= ChocoUtil.get_current_version("Rebar3") %>'
 
 #Note that this process will _not_ uninstall Erlang.
 #Remove the shim file.

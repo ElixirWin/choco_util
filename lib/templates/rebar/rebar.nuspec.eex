@@ -3,7 +3,7 @@
   <metadata>
     <id>rebar3</id>
     <title>Rebar3</title>
-    <version><%= GetRebarVersion() %></version>
+    <version><%= ChocoUtil.get_current_version("Rebar3") %></version>
     <authors>Fred Hebert, Tristan Sloughter</authors>
     <owners>Onorio Catenacci</owners>
     <summary>Erlang build tool.</summary>
