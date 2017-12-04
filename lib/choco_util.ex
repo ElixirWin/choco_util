@@ -8,7 +8,8 @@ defmodule ChocoUtil do
     elixir_package = %Package{
       url_template: 'https://github.com/elixir-lang/elixir/releases/download/v1.5.2/Precompiled.zip',
       current_version: "1.5.2",
-      binary_name: "/precompiled.zip"
+      binary_name: "/precompiled.zip",
+      template_dir: System.get_env("UserProfile") <> "/choco_util/lib/templates/elixir"
     }
     elixir_package
   end  
@@ -17,7 +18,8 @@ defmodule ChocoUtil do
     rebar3_package = %Package{
       url_template: 'https://s3.amazonaws.com/rebar3/rebar3',
       current_version: "3.4.4",
-      binary_name: "/rebar3"
+      binary_name: "/rebar3",
+      template_dir: System.get_env("UserProfile") <> "/choco_util/lib/templates/rebar"
     }
     rebar3_package
   end
@@ -27,7 +29,8 @@ defmodule ChocoUtil do
       url_template: 'http://www.erlang.org/download/otp_win32_20.1.exe',
       current_version: "20.1",
       current_erts_version: "9.1",
-      binary_name: "/opt_win32_20.1.exe"
+      binary_name: "/opt_win32_20.1.exe",
+      template_dir: System.get_env("UserProfile") <> "/choco_util/lib/templates/erlang"
     }
     erlang_w32_package
   end
@@ -38,7 +41,8 @@ defmodule ChocoUtil do
       url_template: 'http://www.erlang.org/download/otp_win64_20.1.exe',
       current_version: "20.1",
       current_erts_version: "9.1",
-      binary_name: "/opt_win64_20.1.exe"
+      binary_name: "/opt_win64_20.1.exe",
+      template_dir: System.get_env("UserProfile") <> "/choco_util/lib/templates/erlang"
     }
     erlang_w64_package
   end
@@ -58,10 +62,22 @@ defmodule ChocoUtil do
     File.write!(download_dir <> filename, body) 
   end
 
-  def get_base_file_name_from_template_name(template_file_name) do
+  defp get_base_file_name_from_template_name(template_file_name) do
     file_separator = "."
     [base, extension, _eexExtension] = String.split(template_file_name, file_separator)
     base <> file_separator <> extension   
+  end
+
+  def fix_up(pn = @rebar_package_name) do
+    package_details = initialize_package(pn)
+    original_dir = File.cwd()
+    package_dir = package_details.template_dir
+    File.cd package_dir
+    {:ok,file_list} = File.ls()
+    for f <- file_list do
+      File.write(package_dir <> "/" <> get_base_file_name_from_template_name(f), EEx.eval_file(f))
+    end
+    File.cd original_dir
   end
 
   def get_file_and_sha256(pn = @elixir_package_name) do
