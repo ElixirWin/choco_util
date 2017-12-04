@@ -2,6 +2,6 @@ $package = 'rebar3'
 $version = '<%= ChocoUtil.get_current_version("Rebar3") %>'
 
 $toolsDir = $(Split-Path -Parent $MyInvocation.MyCommand.Definition)
-Get-ChocolateyWebFile -packageName $package -fileFullPath $toolsDir/$package -url "https://github.com/erlang/$package/releases/download/$version/rebar3" -checksum <%= ChocoUtil.get_file_and_sha256("Rebar3") %>
+Get-ChocolateyWebFile -packageName $package -fileFullPath $toolsDir/$package -url "https://github.com/erlang/$package/releases/download/$version/rebar3" -Checksum '<%= ChocoUtil.get_file_and_sha256("Rebar3") %>' -Checksumtype 'sha256'
 
 Install-BinFile "rebar3" -path "$toolsDir/rebar3.cmd"
