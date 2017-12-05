@@ -5,13 +5,14 @@ defmodule ChocoUtil do
   @rebar_package_name "Rebar3"
   @file_separator  "."
   @eex_extension "eex"
-
+  @base_template_dir System.get_env("UserProfile") <> "/choco_util/lib/templates/"
+  
   defp initialize_package(@elixir_package_name) do
     elixir_package = %Package{
       url_template: 'https://github.com/elixir-lang/elixir/releases/download/v1.5.2/Precompiled.zip',
       current_version: "1.5.2",
       binary_name: "/precompiled.zip",
-      template_dir: System.get_env("UserProfile") <> "/choco_util/lib/templates/elixir"
+      template_dir: @base_template_dir <> "elixir"
     }
     elixir_package
   end  
@@ -21,7 +22,7 @@ defmodule ChocoUtil do
       url_template: 'https://s3.amazonaws.com/rebar3/rebar3',
       current_version: "3.4.4",
       binary_name: "/rebar3",
-      template_dir: System.get_env("UserProfile") <> "/choco_util/lib/templates/rebar"
+      template_dir: @base_template_dir <> "rebar"
     }
     rebar3_package
   end
@@ -32,7 +33,7 @@ defmodule ChocoUtil do
       current_version: "20.1",
       current_erts_version: "9.1",
       binary_name: "/opt_win32_20.1.exe",
-      template_dir: System.get_env("UserProfile") <> "/choco_util/lib/templates/erlang"
+      template_dir: @base_template_dir <> "erlang"
     }
     erlang_w32_package
   end
@@ -44,7 +45,7 @@ defmodule ChocoUtil do
       current_version: "20.1",
       current_erts_version: "9.1",
       binary_name: "/opt_win64_20.1.exe",
-      template_dir: System.get_env("UserProfile") <> "/choco_util/lib/templates/erlang"
+      template_dir: @base_template_dir <> "erlang"
     }
     erlang_w64_package
   end
@@ -65,7 +66,8 @@ defmodule ChocoUtil do
   end
 
   defp filter_file_list(file_list) do
-    for f <- file_list, [_base, _extension, @eex_extension] <- String.split(f,@file_separator), do: f
+    file_list 
+    |> Enum.filter(fn(file) -> String.ends_with?(file,@eex_extension) end)
   end
 
   defp get_base_file_name_from_template_name(template_file_name) do
@@ -73,9 +75,9 @@ defmodule ChocoUtil do
     base <> @file_separator <> extension
   end
 
-  def fix_up(pn) do
+  def generate_cng_files(pn) do
     package_details = initialize_package(pn)
-    original_dir = File.cwd()
+    {:ok,original_dir} = File.cwd()
     package_dir = package_details.template_dir
     File.cd package_dir
     {:ok,file_list} = File.ls()
@@ -94,33 +96,6 @@ defmodule ChocoUtil do
     get_file_from_remote(download_directory, filename, remote_url)
     get_sha256(download_directory <> filename)
   end
-
-  # def get_file_and_sha256(pn = @rebar_package_name) do
-  #   package_details = initialize_package(pn)
-  #   download_directory = package_details.download_directory
-  #   filename = package_details.binary_name
-  #   remote_url = package_details.url_template
-  #   get_file_from_remote(download_directory, filename, remote_url)
-  #   get_sha256(download_directory <> filename)
-  # end
-
-  # def get_file_and_sha256(pn = @erlang_x86_package_name) do
-  #   package_details_x86 = initialize_package(pn)
-  #   download_directory = package_details_x86.download_directory
-  #   filename = package_details_x86.binary_name
-  #   remote_url = package_details_x86.url_template
-  #   get_file_from_remote(download_directory, filename, remote_url)
-  #   get_sha256(download_directory <> filename)
-  # end
- 
-  # def get_file_and_sha256(pn = @erlang_x64_package_name) do
-  #   package_details_x64 = initialize_package(pn)
-  #   download_directory = package_details_x64.download_directory
-  #   filename = package_details_x64.binary_name
-  #   remote_url = package_details_x64.url_template
-  #   get_file_from_remote(download_directory, filename, remote_url)
-  #   get_sha256(download_directory <> filename)
-  # end
 
   def get_current_version(pn) do
     p = initialize_package(pn)
