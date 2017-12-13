@@ -20,7 +20,7 @@ defmodule ChocoUtil do
   defp initialize_package(@rebar_package_name) do
     rebar3_package = %Package{
       url_template: 'https://s3.amazonaws.com/rebar3/rebar3',
-      current_version: "3.4.4",
+      current_version: "3.4.7",
       binary_name: "/rebar3",
       template_dir: @base_template_dir <> "rebar"
     }
@@ -32,7 +32,7 @@ defmodule ChocoUtil do
       url_template: 'http://www.erlang.org/download/otp_win32_20.1.exe',
       current_version: "20.1",
       current_erts_version: "9.1",
-      binary_name: "/opt_win32_20.1.exe",
+      binary_name: "/otp_win32_20.1.exe",
       template_dir: @base_template_dir <> "erlang"
     }
     erlang_w32_package
@@ -44,7 +44,7 @@ defmodule ChocoUtil do
       url_template: 'http://www.erlang.org/download/otp_win64_20.1.exe',
       current_version: "20.1",
       current_erts_version: "9.1",
-      binary_name: "/opt_win64_20.1.exe",
+      binary_name: "/otp_win64_20.1.exe",
       template_dir: @base_template_dir <> "erlang"
     }
     erlang_w64_package
