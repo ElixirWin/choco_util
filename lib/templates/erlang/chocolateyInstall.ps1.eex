@@ -26,7 +26,11 @@ $params = @{
 
 Install-ChocolateyPackage @params
 
+$baseErlangPath = "$env:ProgramFiles/erl$erl_version/erts-$erl_version/bin"
 
-Generate-BinFile "erl" -path "$env:ProgramFiles/erl$erl_version/erts-$erl_version/bin/erl.exe"
-Generate-BinFile "werl" -path "$env:ProgramFiles/erl$erl_version/erts-$erl_version/bin/werl.exe"
+Generate-BinFile "erl" -path "$baseErlangPath/erl.exe"
+Generate-BinFile "werl" -path "$baseErlangPath/werl.exe"
+Generate-BinFile "erlc" -path "$baseErlangPath/erlc.exe"
+Generate-BinFile  "escript" -path "$baseErlangPath/escript.exe"
+Generate-BinFile "dialyzer" -path "$baseErlangPath/dialyzer.exe"
 

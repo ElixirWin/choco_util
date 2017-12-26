@@ -30,7 +30,7 @@ defmodule ChocoUtil do
   defp initialize_package(@erlang_x86_package_name) do
     erlang_w32_package = %Package{
       url_template: 'http://www.erlang.org/download/otp_win32_20.1.exe',
-      current_version: "20.2.1",
+      current_version: "20.2",
       current_erts_version: "9.2",
       binary_name: "/otp_win32_20.2.exe",
       template_dir: @base_template_dir <> "erlang"
@@ -42,7 +42,7 @@ defmodule ChocoUtil do
   defp initialize_package(@erlang_x64_package_name) do
     erlang_w64_package = %Package{
       url_template: 'http://www.erlang.org/download/otp_win64_20.1.exe',
-      current_version: "20.2.1",
+      current_version: "20.2",
       current_erts_version: "9.2",
       binary_name: "/otp_win64_20.2.exe",
       template_dir: @base_template_dir <> "erlang"
