@@ -1,16 +1,19 @@
 defmodule ChocoUtil do
   @elixir_package_name "Elixir"
+  @elixir_ver "1.5.3"
   @erlang_x86_package_name "Erlang_x86"
   @erlang_x64_package_name "Erlang_x64"
+  @erlang_ver "20.2"
   @rebar_package_name "Rebar3"
+  @rebar_ver "3.5.0"
   @file_separator  "."
   @eex_extension "eex"
   @base_template_dir System.get_env("UserProfile") <> "/choco_util/lib/templates/"
   
   defp initialize_package(@elixir_package_name) do
     elixir_package = %Package{
-      url_template: 'https://github.com/elixir-lang/elixir/releases/download/v1.5.3/Precompiled.zip',
-      current_version: "1.5.3",
+      url_template: 'https://github.com/elixir-lang/elixir/releases/download/v#{@elixir_ver}/Precompiled.zip',
+      current_version: "#{@elixir_ver}",
       binary_name: "/precompiled.zip",
       template_dir: @base_template_dir <> "elixir"
     }
@@ -20,7 +23,7 @@ defmodule ChocoUtil do
   defp initialize_package(@rebar_package_name) do
     rebar3_package = %Package{
       url_template: 'https://s3.amazonaws.com/rebar3/rebar3',
-      current_version: "3.4.7",
+      current_version: "#{@rebar_ver}",
       binary_name: "/rebar3",
       template_dir: @base_template_dir <> "rebar"
     }
@@ -29,10 +32,10 @@ defmodule ChocoUtil do
 
   defp initialize_package(@erlang_x86_package_name) do
     erlang_w32_package = %Package{
-      url_template: 'http://www.erlang.org/download/otp_win32_20.2.exe',
-      current_version: "20.2",
+      url_template: 'http://www.erlang.org/download/otp_win32_#{@erlang_ver}.exe',
+      current_version: "#{@erlang_ver}",
       current_erts_version: "9.2",
-      binary_name: "/otp_win32_20.2.exe",
+      binary_name: "/otp_win32_#{@erlang_ver}.exe",
       template_dir: @base_template_dir <> "erlang"
     }
     erlang_w32_package
@@ -41,10 +44,10 @@ defmodule ChocoUtil do
 
   defp initialize_package(@erlang_x64_package_name) do
     erlang_w64_package = %Package{
-      url_template: 'http://www.erlang.org/download/otp_win64_20.2.exe',
-      current_version: "20.2",
+      url_template: 'http://www.erlang.org/download/otp_win64_#{@erlang_ver}.exe',
+      current_version: "#{@erlang_ver}",
       current_erts_version: "9.2",
-      binary_name: "/otp_win64_20.2.exe",
+      binary_name: "/otp_win64_#{@erlang_ver}.exe",
       template_dir: @base_template_dir <> "erlang"
     }
     erlang_w64_package

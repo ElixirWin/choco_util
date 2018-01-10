@@ -18,3 +18,8 @@ erl_crash.dump
 
 # Also ignore archive artifacts (built via "mix archive.build").
 *.ez
+
+#In this case I also want to ignore the artifacts of running the tool--that is the .ps1 files, the .nupkg and the .nuspec
+*.ps1
+*.nupkg
+*.nuspec
