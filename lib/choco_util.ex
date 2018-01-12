@@ -64,7 +64,6 @@ defmodule ChocoUtil do
     :ssl.start
     {:ok, resp} = :httpc.request(:get, {url, []}, [], [body_format: :binary])
     {{_, 200, 'OK'}, _headers, body} = resp
-
     File.write!(download_dir <> filename, body) 
   end
 
