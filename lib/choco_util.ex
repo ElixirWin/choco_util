@@ -90,7 +90,7 @@ defmodule ChocoUtil do
     File.cd original_dir
   end
 
-  def get_file_and_sha256(pn) do
+  defp get_file_and_sha256(pn) do
     package_details = initialize_package(pn)
     download_directory = package_details.download_directory
     filename = package_details.binary_name
@@ -99,12 +99,12 @@ defmodule ChocoUtil do
     get_sha256(download_directory <> filename)
   end
 
-  def get_current_version(pn) do
+  defp get_current_version(pn) do
     p = initialize_package(pn)
     p.current_version
   end
 
-  def get_current_erts_version(pn) do
+  defp get_current_erts_version(pn) do
     p = initialize_package(pn)
     p.current_erts_version
   end 
