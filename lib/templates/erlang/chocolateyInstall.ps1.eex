@@ -15,10 +15,10 @@ $params = @{
   PackageName = $package
   FileType = 'exe'
   SilentArgs = '/S'
-  Url = "http://www.erlang.org/download/otp_win32_$version.exe"
+  Url = "https://www.erlang.org/download/otp_win32_$version.exe"
   CheckSum = '<%= ChocoUtil.get_file_and_sha256("Erlang_x86") %>' 
   CheckSumType = 'sha256'
-  Url64 = "http://www.erlang.org/download/otp_win64_$version.exe"
+  Url64 = "https://www.erlang.org/download/otp_win64_$version.exe"
   CheckSum64 = '<%= ChocoUtil.get_file_and_sha256("Erlang_x64") %>'
   CheckSumType64 = 'sha256'
   validExitCodes = @(0)
