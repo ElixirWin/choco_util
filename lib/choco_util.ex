@@ -1,6 +1,6 @@
 defmodule ChocoUtil do
   @elixir_package_name "Elixir"
-  @elixir_ver "1.6.0"
+  @elixir_ver "1.6.1"
   @erlang_x86_package_name "Erlang_x86"
   @erlang_x64_package_name "Erlang_x64"
   @erlang_ver "20.2"
