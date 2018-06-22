@@ -1,11 +1,12 @@
 defmodule ChocoUtil do
   @elixir_package_name "Elixir"
-  @elixir_ver "1.6.2"
+  @elixir_ver "1.6.6"
   @erlang_x86_package_name "Erlang_x86"
   @erlang_x64_package_name "Erlang_x64"
-  @erlang_ver "20.2"
+  @erlang_ver "21.0"
+  @erts_ver "10.0"
   @rebar_package_name "Rebar3"
-  @rebar_ver "3.5.0"
+  @rebar_ver "3.5.2"
   @file_separator "."
   @eex_extension "eex"
   @base_template_dir System.get_env("UserProfile") <> "/choco_util/lib/templates/"
@@ -37,7 +38,7 @@ defmodule ChocoUtil do
     erlang_w32_package = %Package{
       url_template: 'https://www.erlang.org/download/otp_win32_#{@erlang_ver}.exe',
       current_version: "#{@erlang_ver}",
-      current_erts_version: "9.2",
+      current_erts_version: "#{@erts_ver}",
       binary_name: "/otp_win32_#{@erlang_ver}.exe",
       template_dir: @base_template_dir <> "erlang"
     }
@@ -49,7 +50,7 @@ defmodule ChocoUtil do
     erlang_w64_package = %Package{
       url_template: 'https://www.erlang.org/download/otp_win64_#{@erlang_ver}.exe',
       current_version: "#{@erlang_ver}",
-      current_erts_version: "9.2",
+      current_erts_version: "#{@erts_ver}",
       binary_name: "/otp_win64_#{@erlang_ver}.exe",
       template_dir: @base_template_dir <> "erlang"
     }
